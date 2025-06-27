@@ -25,7 +25,7 @@ const protect = async (req, res, next) => {
 };
 
 // middleware for admin only
-const adminOnly = (req, res) => {
+const adminOnly = (req, res, next) => {
   if (req.user && req.user.role === "admin") {
     next();
   } else {
@@ -35,4 +35,4 @@ const adminOnly = (req, res) => {
   }
 };
 
-module.exports = protect;
+module.exports = { protect, adminOnly };
