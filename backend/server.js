@@ -13,12 +13,12 @@ const app = express();
 // middlewares to handle cors
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "",
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["content-type", "Authorization"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
   })
 );
-
 app.use(express.json());
 
 // connect database
