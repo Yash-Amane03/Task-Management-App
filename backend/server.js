@@ -30,6 +30,8 @@ app.use("/api/users", userRoutes);
 app.use('/api/tasks',taskRoutes);
 app.use('/api/reports',reportRoutes);
 
+// server upload folder
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
