@@ -189,14 +189,14 @@ const getDashboardData = async (req, res) => {
   try {
     const totalTasks = await Task.countDocuments();
     const pendingTasks = await Task.countDocuments({ status: "pending" });
-    const completedTasks = await Task.countDocuments({ status: "complted" });
+    const completedTasks = await Task.countDocuments({ status: "completed" });
     const overdueTasks = await Task.countDocuments({
-      status: { $ne: "cpmpleted" },
+      status: { $ne: "completed" },
       dueDate: { $lt: new Date() },
     });
 
     // ensure all possible statuses are include
-    const taskStatuses = ["pending", "completed", "in progress"];
+    const taskStatuses = ["pending", "completed", "in Progress"];
     const taskDistributionRaw = await Task.aggregate([
       {
         $group: {
@@ -207,13 +207,10 @@ const getDashboardData = async (req, res) => {
     ]);
     const taskDistribution = taskStatuses.reduce((acc, status) => {
       const formattedKey = status.replace(/\s+/g, "");
-      acc[formattedKey] =
-        taskDistributionRaw.find((item) => {
-          item._id === status;
-        })?.count || 0;
+      acc[formattedKey] = taskDistributionRaw.find((item) => item._id === status)?.count || 0;
       return acc;
     }, {});
-
+    taskDistribution["all"] = totalTasks;
     // ensure all priorities
     const taskPriorities = ["low", "medium", "high"];
     const taskPrioritiesLevelRaw = await Task.aggregate([
