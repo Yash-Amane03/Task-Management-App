@@ -9,10 +9,11 @@ import moment from 'moment'
 import { LuTrash2 } from 'react-icons/lu'
 import SelectDropdown from '../../components/Inputs/SelectDropdown'
 import SelectUsers from '../../components/Inputs/SelectUsers'
+import TodoListInput from '../../components/Inputs/TodoListInput'
 function CreateTask() {
 
   const location = useLocation();
-  const taskId = location.state || {};
+  const taskId = location.state?.taskId || null;
   const navigate = useNavigate();
 
   const [taskData, setTaskData] = useState({
@@ -40,7 +41,7 @@ function CreateTask() {
     title: "",
     description:"",
     priority: "low",
-    dueDate: null,
+    dueDate: "",
     assignedTo:[],
     todoChecklist: [],
     attachements: []
@@ -119,7 +120,7 @@ function CreateTask() {
                 
                 <input placeholder='Create App UI'
                   className='form-input'
-                  value={taskData.dueDate}
+                  value={taskData.dueDate ?? ""}
                   onChange={({target})=> handleValueChange("dueDate", target.value)}
                   type='date'
                 />
@@ -132,6 +133,16 @@ function CreateTask() {
                 <SelectUsers
                   selectedUsers={taskData.assignedTo}
                   setSelectedUsers = {(value)=> handleValueChange("assignedTo", value)}
+                />
+              </div>
+              <div className="col-span-12 mt-3">
+                <label className="text-xs font-medium text-slate-600">
+                  TODO Checklist
+                </label>
+                <TodoListInput
+                  todoList = {taskData?.todoChecklist}
+                  setTodoList = {(value)=> handleValueChange('todoChecklist', value)}
+
                 />
               </div>
             </div>

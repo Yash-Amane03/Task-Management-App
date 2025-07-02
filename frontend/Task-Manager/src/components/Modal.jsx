@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Modal = ({ children, isOpen, isClose, title }) => {
+const Modal = ({ children, isOpen, onClose, title }) => {
   if(!isOpen) return;
   
   return <div className="fixed top-0 right-0 left-0 z-50 flex justify-center items-center w-full h-[calc(100%-1rem)] max-h-full overflow-y-auto overflow-x-hidden bg-black/20">
@@ -13,7 +13,7 @@ const Modal = ({ children, isOpen, isClose, title }) => {
           <button
             type='button'
             className='text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white cursor-pointer'
-            onClick={onclose}
+            onClick={onClose}
           >
             <svg className='w-3 h-3'
             aria-hidden='true'
@@ -33,7 +33,7 @@ const Modal = ({ children, isOpen, isClose, title }) => {
         </div>
 
         {/* Modal body */}
-        <div className="p-4 md:p-5 space-y-4">
+        <div className="p-4 md:p-5 spa-y-4">
           {children}
         </div>
       </div>

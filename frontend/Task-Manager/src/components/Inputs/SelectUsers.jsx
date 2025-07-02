@@ -7,7 +7,7 @@ import AvatarGroup from '../AvatarGroup';
 
 const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
   const [allUsers, setAllUsers] = useState([]);
-  const [isModelOpen, setIsModelOpen] = useState(true);
+  const [isModelOpen, setIsModelOpen] = useState(false);
   const [tempSelectedUsers, setTempSelecedUsers] = useState([]);
 
   const getAllUsers = async () => {
@@ -27,10 +27,10 @@ const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
 
   const  handleAssign = () =>{
     setSelectedUsers(tempSelectedUsers);
-    setIsModelOpen(true);
+    setIsModelOpen(false);
   }
 
-  const selectedUsersAvatar = allUsers.filter((user)=> selectedUsers.includes(user._id)).map((user)=> user.profileImgUrl);
+  const selectedUsersAvatar = allUsers.filter((user)=> selectedUsers.includes(user._id)).map((user)=> user.profileImageUrl);
 
   useEffect(()=>{
     getAllUsers();
@@ -62,7 +62,7 @@ const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
         <div className="space-y-4 h-[60vh] overflow-y-auto">
           {allUsers.map((user)=>(
             <div key={user._id} className="flex items-center gap-4 p-3 border-b border-gray-200">
-              <img src={user.profileImgUrl} alt={user.name} className='w-10 h-10 rounded-full' />
+              <img src={user.profileImageUrl} alt={user.name} className='w-10 h-10 rounded-full' />
               <div className="flex-1">
                 <p className="font-medium text-gray-800 dark:text-white">{user.name}</p>
                 <p className="text-[13px] text-gray-500">{user.email}</p>
